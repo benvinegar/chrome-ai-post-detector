@@ -2,7 +2,7 @@
 
 A Chrome extension that highlights posts on X (Twitter) that may be AI-generated, based on typographic markers that LLMs commonly produce.
 
-![Screenshot](screenshot.png)
+<img width="1166" height="506" alt="image" src="https://github.com/user-attachments/assets/2d72f16e-1258-45a7-92ac-dd1efc620c35" />
 
 ## How it works
 
