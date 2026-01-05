@@ -2,36 +2,28 @@
 // Detects posts likely written by AI based on typographic markers
 
 const AI_MARKERS = {
-  // Em dash (humans typically type -- or -)
+  // Strong signals (weight 4) - rarely occur naturally
+  nonBreakingSpace: { char: '\u00A0', weight: 4, name: 'non-breaking space' },
+  middleDot: { char: '\u00B7', weight: 4, name: 'middle dot' },
+  figureDash: { char: '\u2012', weight: 4, name: 'figure dash' },
+  minusSign: { char: '\u2212', weight: 4, name: 'minus sign' },
+  multiplication: { char: '\u00D7', weight: 4, name: 'multiplication sign' },
+
+  // Medium signals (weight 3) - uncommon in human typing
   emDash: { char: '\u2014', weight: 3, name: 'em dash' },
+  primeDouble: { char: '\u2033', weight: 3, name: 'double prime' },
+  primeSingle: { char: '\u2032', weight: 3, name: 'single prime' },
 
-  // Curly/smart quotes (humans type straight quotes, but some platforms auto-convert)
-  leftDoubleQuote: { char: '\u201C', weight: 1, name: 'left double quote' },    // "
-  rightDoubleQuote: { char: '\u201D', weight: 1, name: 'right double quote' },  // "
-  leftSingleQuote: { char: '\u2018', weight: 1, name: 'left single quote' },    // '
-  rightSingleQuote: { char: '\u2019', weight: 1, name: 'right single quote' },  // ' (also apostrophe)
-
-  // Fancy spaces and hyphens
-  nonBreakingSpace: { char: '\u00A0', weight: 1, name: 'non-breaking space' },
-  figureDash: { char: '\u2012', weight: 3, name: 'figure dash' },
-
-  // Other markers
-  primeDouble: { char: '\u2033', weight: 2, name: 'double prime' },
-  primeSingle: { char: '\u2032', weight: 2, name: 'single prime' },
-
-  // Ellipsis (humans type ..., AI outputs single char)
+  // Weak signals (weight 2) - sometimes auto-converted by platforms
   ellipsis: { char: '\u2026', weight: 2, name: 'ellipsis' },
+  leftDoubleQuote: { char: '\u201C', weight: 2, name: 'left double quote' },    // "
+  rightDoubleQuote: { char: '\u201D', weight: 2, name: 'right double quote' },  // "
+  leftSingleQuote: { char: '\u2018', weight: 2, name: 'left single quote' },    // '
+  rightSingleQuote: { char: '\u2019', weight: 2, name: 'right single quote' },  // ' (also apostrophe)
 
-  // Math symbols (humans type x, -, AI uses proper symbols)
-  minusSign: { char: '\u2212', weight: 3, name: 'minus sign' },
-  multiplication: { char: '\u00D7', weight: 3, name: 'multiplication sign' },
-
-  // Arrows (low weight since some humans use these)
+  // Very weak signals (weight 1) - often used by humans too
   rightArrow: { char: '\u2192', weight: 1, name: 'right arrow' },
   leftArrow: { char: '\u2190', weight: 1, name: 'left arrow' },
-
-  // Middle dot (used in LLM formatting)
-  middleDot: { char: '\u00B7', weight: 2, name: 'middle dot' },
 };
 
 // Threshold for highlighting (sum of weights)
@@ -51,17 +43,13 @@ function analyzeText(text) {
   let totalScore = 0;
 
   for (const [key, marker] of Object.entries(AI_MARKERS)) {
-    const regex = new RegExp(marker.char, 'g');
-    const matches = textWithoutUrls.match(regex);
-    if (matches) {
-      const count = matches.length;
-      const score = count * marker.weight;
-      totalScore += score;
+    // Only check for presence, not count (multiple instances isn't stronger evidence)
+    if (textWithoutUrls.includes(marker.char)) {
+      totalScore += marker.weight;
       findings.push({
         marker: marker.name,
         char: marker.char,
-        count,
-        score
+        weight: marker.weight
       });
     }
   }
@@ -81,7 +69,7 @@ function createTooltipElement(findings) {
     row.className = 'ai-detector-tooltip-row';
     row.innerHTML = `
       <span>${finding.marker} <span class="ai-detector-tooltip-char">${finding.char}</span></span>
-      <span>${finding.count}× (+${finding.score})</span>
+      <span>+${finding.weight}</span>
     `;
     tooltip.appendChild(row);
   }
