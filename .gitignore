@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Editor
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Chrome extension development
+*.pem
+*.crx
+*.zip
+
+# Node (if added later)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
