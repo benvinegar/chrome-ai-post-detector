@@ -5,10 +5,10 @@ const AI_MARKERS = {
   // Em dash (humans typically type -- or -)
   emDash: { char: '\u2014', weight: 3, name: 'em dash' },
 
-  // Curly/smart quotes (humans type straight quotes)
-  leftDoubleQuote: { char: '\u201C', weight: 2, name: 'left double quote' },    // "
-  rightDoubleQuote: { char: '\u201D', weight: 2, name: 'right double quote' },  // "
-  leftSingleQuote: { char: '\u2018', weight: 2, name: 'left single quote' },    // '
+  // Curly/smart quotes (humans type straight quotes, but some platforms auto-convert)
+  leftDoubleQuote: { char: '\u201C', weight: 1, name: 'left double quote' },    // "
+  rightDoubleQuote: { char: '\u201D', weight: 1, name: 'right double quote' },  // "
+  leftSingleQuote: { char: '\u2018', weight: 1, name: 'left single quote' },    // '
   rightSingleQuote: { char: '\u2019', weight: 1, name: 'right single quote' },  // ' (also apostrophe)
 
   // Fancy spaces and hyphens
