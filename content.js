@@ -9,8 +9,8 @@ const AI_MARKERS = {
   // Curly/smart quotes (humans type straight quotes)
   leftDoubleQuote: { char: '"', weight: 2, name: 'left double quote' },
   rightDoubleQuote: { char: '"', weight: 2, name: 'right double quote' },
-  leftSingleQuote: { char: ''', weight: 2, name: 'left single quote' },
-  rightSingleQuote: { char: ''', weight: 1, name: 'right single quote' }, // Can be apostrophe
+  leftSingleQuote: { char: "'", weight: 2, name: 'left single quote' },
+  rightSingleQuote: { char: "'", weight: 1, name: 'right single quote' }, // Can be apostrophe
 
   // Other typographic characters
   ellipsis: { char: '…', weight: 2, name: 'ellipsis character' },
