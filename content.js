@@ -67,17 +67,23 @@ function analyzeText(text) {
 }
 
 /**
- * Create tooltip content from findings
+ * Create tooltip element from findings
  */
-function createTooltipContent(findings, totalScore) {
-  const lines = ['AI Detection Score: ' + totalScore];
-  lines.push('─'.repeat(25));
+function createTooltipElement(findings) {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'ai-detector-tooltip';
 
   for (const finding of findings) {
-    lines.push(`${finding.marker}: ${finding.count}× (${finding.char})`);
+    const row = document.createElement('div');
+    row.className = 'ai-detector-tooltip-row';
+    row.innerHTML = `
+      <span>${finding.marker} <span class="ai-detector-tooltip-char">${finding.char}</span></span>
+      <span>${finding.count}× (+${finding.score})</span>
+    `;
+    tooltip.appendChild(row);
   }
 
-  return lines.join('\n');
+  return tooltip;
 }
 
 /**
@@ -109,7 +115,9 @@ function processTweets() {
         const badge = document.createElement('div');
         badge.className = 'ai-detector-badge';
         badge.textContent = `AI: ${totalScore}`;
-        badge.title = createTooltipContent(findings, totalScore);
+
+        // Add tooltip element
+        badge.appendChild(createTooltipElement(findings));
 
         // Add intensity class based on score
         if (totalScore >= 10) {
@@ -120,13 +128,8 @@ function processTweets() {
           badge.classList.add('ai-detector-low');
         }
 
-        // Insert badge at the top of the tweet
-        const firstChild = tweet.firstChild;
-        if (firstChild) {
-          tweet.insertBefore(badge, firstChild);
-        } else {
-          tweet.appendChild(badge);
-        }
+        // Insert badge at the bottom of the tweet
+        tweet.appendChild(badge);
       }
     }
   });
