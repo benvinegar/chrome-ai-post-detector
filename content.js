@@ -41,12 +41,15 @@ const processedTweets = new WeakSet();
  * Analyze text for AI markers and return score + details
  */
 function analyzeText(text) {
+  // Strip URLs to avoid false positives (X truncates URLs with ellipsis)
+  const textWithoutUrls = text.replace(/https?:\/\/\S+/g, '').replace(/\S+\.\S+\/\S*/g, '');
+
   const findings = [];
   let totalScore = 0;
 
   for (const [key, marker] of Object.entries(AI_MARKERS)) {
     const regex = new RegExp(marker.char, 'g');
-    const matches = text.match(regex);
+    const matches = textWithoutUrls.match(regex);
     if (matches) {
       const count = matches.length;
       const score = count * marker.weight;
