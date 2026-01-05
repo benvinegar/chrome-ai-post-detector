@@ -3,8 +3,7 @@
 
 const AI_MARKERS = {
   // Em dash (humans typically type -- or -)
-  emDash: { char: '—', weight: 3, name: 'em dash' },
-  enDash: { char: '–', weight: 2, name: 'en dash' },
+  emDash: { char: '\u2014', weight: 3, name: 'em dash' },
 
   // Curly/smart quotes (humans type straight quotes)
   leftDoubleQuote: { char: '\u201C', weight: 2, name: 'left double quote' },    // "
@@ -12,17 +11,13 @@ const AI_MARKERS = {
   leftSingleQuote: { char: '\u2018', weight: 2, name: 'left single quote' },    // '
   rightSingleQuote: { char: '\u2019', weight: 1, name: 'right single quote' },  // ' (also apostrophe)
 
-  // Other typographic characters
-  ellipsis: { char: '…', weight: 2, name: 'ellipsis character' },
-  bullet: { char: '•', weight: 1, name: 'bullet point' },
-
   // Fancy spaces and hyphens
   nonBreakingSpace: { char: '\u00A0', weight: 1, name: 'non-breaking space' },
-  figureDash: { char: '‒', weight: 3, name: 'figure dash' },
+  figureDash: { char: '\u2012', weight: 3, name: 'figure dash' },
 
   // Other markers
-  primeDouble: { char: '″', weight: 2, name: 'double prime' },
-  primeSingle: { char: '′', weight: 2, name: 'single prime' },
+  primeDouble: { char: '\u2033', weight: 2, name: 'double prime' },
+  primeSingle: { char: '\u2032', weight: 2, name: 'single prime' },
 };
 
 // Threshold for highlighting (sum of weights)
