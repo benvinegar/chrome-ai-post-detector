@@ -18,6 +18,17 @@ const AI_MARKERS = {
   // Other markers
   primeDouble: { char: '\u2033', weight: 2, name: 'double prime' },
   primeSingle: { char: '\u2032', weight: 2, name: 'single prime' },
+
+  // Ellipsis (humans type ..., AI outputs single char)
+  ellipsis: { char: '\u2026', weight: 2, name: 'ellipsis' },
+
+  // Math symbols (humans type x, -, AI uses proper symbols)
+  minusSign: { char: '\u2212', weight: 3, name: 'minus sign' },
+  multiplication: { char: '\u00D7', weight: 3, name: 'multiplication sign' },
+
+  // Arrows (low weight since some humans use these)
+  rightArrow: { char: '\u2192', weight: 1, name: 'right arrow' },
+  leftArrow: { char: '\u2190', weight: 1, name: 'left arrow' },
 };
 
 // Threshold for highlighting (sum of weights)
@@ -85,8 +96,9 @@ function processTweets() {
     const { totalScore, findings } = analyzeText(text);
 
     if (totalScore >= HIGHLIGHT_THRESHOLD) {
-      // Add highlight class to the tweet
-      tweet.classList.add('ai-detector-highlighted');
+      // Apply highlight styles directly via inline styles (X's React resets classes)
+      tweet.style.setProperty('border-left', '3px solid #ff6b35', 'important');
+      tweet.style.setProperty('background', 'linear-gradient(90deg, rgba(255, 107, 53, 0.15) 0%, transparent 50%)', 'important');
 
       // Add score badge
       const existingBadge = tweet.querySelector('.ai-detector-badge');
