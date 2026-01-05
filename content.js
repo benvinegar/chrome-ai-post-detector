@@ -7,10 +7,10 @@ const AI_MARKERS = {
   enDash: { char: '–', weight: 2, name: 'en dash' },
 
   // Curly/smart quotes (humans type straight quotes)
-  leftDoubleQuote: { char: '"', weight: 2, name: 'left double quote' },
-  rightDoubleQuote: { char: '"', weight: 2, name: 'right double quote' },
-  leftSingleQuote: { char: "'", weight: 2, name: 'left single quote' },
-  rightSingleQuote: { char: "'", weight: 1, name: 'right single quote' }, // Can be apostrophe
+  leftDoubleQuote: { char: '\u201C', weight: 2, name: 'left double quote' },    // "
+  rightDoubleQuote: { char: '\u201D', weight: 2, name: 'right double quote' },  // "
+  leftSingleQuote: { char: '\u2018', weight: 2, name: 'left single quote' },    // '
+  rightSingleQuote: { char: '\u2019', weight: 1, name: 'right single quote' },  // ' (also apostrophe)
 
   // Other typographic characters
   ellipsis: { char: '…', weight: 2, name: 'ellipsis character' },
