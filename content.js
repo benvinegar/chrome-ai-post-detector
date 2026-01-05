@@ -29,6 +29,9 @@ const AI_MARKERS = {
   // Arrows (low weight since some humans use these)
   rightArrow: { char: '\u2192', weight: 1, name: 'right arrow' },
   leftArrow: { char: '\u2190', weight: 1, name: 'left arrow' },
+
+  // Middle dot (used in LLM formatting)
+  middleDot: { char: '\u00B7', weight: 2, name: 'middle dot' },
 };
 
 // Threshold for highlighting (sum of weights)
